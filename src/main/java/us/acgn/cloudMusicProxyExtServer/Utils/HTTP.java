@@ -11,6 +11,8 @@ import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 
+import us.acgn.cloudMusicProxyExtServer.ProjectStatus;
+
 public class HTTP {
 	public static String httpPost(String ip, int port, String url, String charset, Map<String, String> headers,
 			Map<String, String> params) {
@@ -58,7 +60,12 @@ public class HTTP {
 		Content content = null;
 		Request req = null;
 		try {
-			req = Request.Get(finalUrl).viaProxy("127.0.0.1:8888");
+			if (ProjectStatus.isDevelopment){
+				req = Request.Get(finalUrl).viaProxy("127.0.0.1:8888");
+			}else{
+				req = Request.Get(finalUrl);
+			}
+			
 			if (headers != null) {
 				for (Map.Entry<String, String> entry : headers.entrySet()) {
 					req.addHeader(entry.getKey(), entry.getValue());
