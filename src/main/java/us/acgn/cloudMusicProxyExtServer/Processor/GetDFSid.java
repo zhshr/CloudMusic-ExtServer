@@ -1,4 +1,4 @@
-package us.acgn.cloudMusicProxyServer.Processor;
+package us.acgn.cloudMusicProxyExtServer.Processor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 
 import org.json.simple.JSONArray;
 
-import us.acgn.cloudMusicProxyServer.Utils.HTTP;
-import us.acgn.cloudMusicProxyServer.Utils.JSONAccesser;
-import us.acgn.cloudMusicProxyServer.Utils.NeteaseAPI.Quality;
+import us.acgn.cloudMusicProxyExtServer.Utils.HTTP;
+import us.acgn.cloudMusicProxyExtServer.Utils.JSONAccesser;
+import us.acgn.cloudMusicProxyExtServer.Utils.NeteaseAPI.Quality;
 
 public class GetDFSid {
 	private static String ip;

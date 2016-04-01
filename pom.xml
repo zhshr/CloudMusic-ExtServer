@@ -73,7 +73,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>us.acgn.cloudMusicProxyServer.App</mainClass>
+							<mainClass>us.acgn.cloudMusicProxyExtServer.CloudMusicProxyExtServer</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

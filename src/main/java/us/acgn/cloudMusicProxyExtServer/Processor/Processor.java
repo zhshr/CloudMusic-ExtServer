@@ -1,7 +1,7 @@
-package us.acgn.cloudMusicProxyServer.Processor;
+package us.acgn.cloudMusicProxyExtServer.Processor;
 
 import fi.iki.elonen.NanoHTTPD.Method;
-import us.acgn.cloudMusicProxyServer.Server;
+import us.acgn.cloudMusicProxyExtServer.Server;
 
 public class Processor {
 	private String ip = "127.0.0.1";

@@ -1,4 +1,4 @@
-package us.acgn.cloudMusicProxyServer.Utils;
+package us.acgn.cloudMusicProxyExtServer.Utils;
 import java.security.*;
 import java.util.Random;
 

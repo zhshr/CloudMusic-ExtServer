@@ -1,4 +1,4 @@
-package us.acgn.cloudMusicProxyServer.Utils;
+package us.acgn.cloudMusicProxyExtServer.Utils;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

@@ -1,4 +1,4 @@
-package us.acgn.cloudMusicProxyServer;
+package us.acgn.cloudMusicProxyExtServer;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import java.io.IOException;
  * Hello world!
  *
  */
-public class App 
+public class CloudMusicProxyExtServer 
 {
     public static void main( String[] args )
     {

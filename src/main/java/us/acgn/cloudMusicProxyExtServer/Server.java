@@ -1,4 +1,4 @@
-package us.acgn.cloudMusicProxyServer;
+package us.acgn.cloudMusicProxyExtServer;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 import fi.iki.elonen.NanoHTTPD;
-import us.acgn.cloudMusicProxyServer.Processor.Processor;
+import us.acgn.cloudMusicProxyExtServer.Processor.Processor;
 
 public class Server extends NanoHTTPD {
 	public interface ProcessingFunction {
