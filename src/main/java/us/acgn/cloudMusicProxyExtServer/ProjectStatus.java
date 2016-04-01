@@ -10,4 +10,8 @@ public class ProjectStatus {
 		}
 		return false;
 	}
+	public static void printStatus(){
+		System.out.println("Running Status:");
+		System.out.println("\tDevelopment: " + (isDevelopment()?"Yes":"No"));
+	}
 }

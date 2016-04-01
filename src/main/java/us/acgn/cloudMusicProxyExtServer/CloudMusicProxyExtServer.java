@@ -10,6 +10,9 @@ public class CloudMusicProxyExtServer
 {
     public static void main( String[] args )
     {
+    	System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));
+    	ProjectStatus.printStatus();
     	try {
             new Server(1111);
         } catch (IOException ioe) {
