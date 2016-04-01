@@ -13,7 +13,6 @@ public class Server extends NanoHTTPD {
 	public interface ProcessingFunction {
 		public String process(Map<String, String> params);
 	}
-	private boolean isProduction = false;
 	private Processor processor;
 	private Map<String, ProcessingFunction> pathList;
 	private Map<String, Method> methodList;
@@ -64,7 +63,7 @@ public class Server extends NanoHTTPD {
 			session.parseBody(new HashMap<String, String>());
 			Map<String, String> params = session.getParms();
 			msg = process(method, uri, params);
-			if (msg=="" && !isProduction){
+			if (msg=="" && ! ProjectStatus.isDevelopment){
 				msg = method.toString() + "<br />" + uri + "<br />";
 				for (Map.Entry<String, String> entry : params.entrySet()) {
 					msg += entry.getKey() + " : " + entry.getValue() + "<br />";
