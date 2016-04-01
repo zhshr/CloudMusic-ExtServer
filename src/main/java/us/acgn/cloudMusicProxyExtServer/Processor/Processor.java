@@ -4,8 +4,8 @@ import fi.iki.elonen.NanoHTTPD.Method;
 import us.acgn.cloudMusicProxyExtServer.Server;
 
 public class Processor {
-	private String ip = "127.0.0.1";
-	private int port = 1112;
+	private String ip = "music.163.com";
+	private int port = 80;
 	public Processor(){
 		
 	}

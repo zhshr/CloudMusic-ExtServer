@@ -59,6 +59,7 @@ public class Server extends NanoHTTPD {
 		Method method = session.getMethod();
 		String uri = session.getUri();
 		String msg = "";
+		// TODO: traffic control
 		try {
 			session.parseBody(new HashMap<String, String>());
 			Map<String, String> params = session.getParms();

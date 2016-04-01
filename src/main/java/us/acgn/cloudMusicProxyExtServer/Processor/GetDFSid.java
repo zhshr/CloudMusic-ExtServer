@@ -21,66 +21,74 @@ public class GetDFSid {
 		this.port = port;
 	}
 
+	/**
+	 * Only allows one id per request!
+	 * 
+	 * @param params
+	 *            includes:<br>
+	 *            id songID<br>
+	 *            quality String represents the quality requested
+	 * @return
+	 */
 	public String process(Map<String, String> params) {
-		// first try to get it from back-end server
-		String result = "";
-		String temp = ""; //HTTP.httpPost(ip, port, "getDFSid", null, null, params);
-		//temp = "123,,555";
+		// TODO: first try to get it from back-end server
 		String[] songIDs = params.get("ids").split(",");
-		String[] dfsIDs = temp.split(",");
-		List<String> missingIDs = new ArrayList<String>();
-		Map<String, String> musicuuHeaders = new HashMap<String, String>();
-		musicuuHeaders.put("Host", "api.musicuu.com");
-		for (int i = 0; i < dfsIDs.length; i++) {
-			if (dfsIDs[i].equals("")) {
-				missingIDs.add(songIDs[i]);
-				String spy = "";
-				spy = HTTP.httpGet("api.musicuu.com", 80, ("music/search/wy/" + songIDs[i] + "/1?format=json"),null, musicuuHeaders, params);
-				JSONAccesser data = new JSONAccesser(spy);
-				JSONArray array = data.parseJSONArray();
-				for (int j = 0; j < array.size(); j++){
-					try{
-						if (data.get(j).get("SongId").parseString().equals(songIDs[i])){
-							result += extractDFSid(data.get(j), Quality.valueOf(params.get("quality"))) + ",";
-							break;
-						}
-					}catch(Exception e){
-						
-					}
-				}
-			}else{
-				result += dfsIDs[i] + ",";
-			}
+		Quality quality = Quality.valueOf(params.get("quality"));
+		String backendResult = "";
+		if (backendResult != "") {
+			// DFSid get from backend server
 		}
-		if (result != null && result.length()>0){
-			result = result.substring(0, result.length()-1);
+
+		// try to get from netease server
+		Map<String, String> headers = new HashMap<String, String>();
+		Map<String, String> httpParams = new HashMap<String, String>();
+		httpParams.put("c", encodeSongIDs(songIDs));
+		headers.put("Cookie", "os=pc");
+
+		String spy = "";
+		spy = HTTP.httpPost(ip, port, "api/v2/song/detail", null, headers, httpParams);
+
+		// TODO: split results
+		JSONAccesser data = new JSONAccesser(spy);
+		System.out.println(spy);
+		return extractDFSid(data.get("songs").get(0), quality);
+	}
+
+	private String encodeSongIDs(String[] ids) {
+		String result = "[{\"id\":";
+		for (String id : ids) {
+			result += "\"" + id + "\",";
 		}
+		if (ids.length != 0) {
+			result = result.substring(0, result.length() - 1);
+		}
+		result += "}]";
 		return result;
 	}
 
 	private String extractDFSid(JSONAccesser data, Quality quality) {
 		String songURL = "";
+		long dfsID = 0;
 		switch (quality) {
 		case AsHigh:
 		case High:
-			if ((songURL = data.get("SqUrl").parseString())!=""){
+			if ((dfsID = data.get("h").get("fid").parseLong()) != 0) {
 				break;
 			}
 		case Medium:
-			if ((songURL = data.get("HqUrl").parseString())!=""){
+			if ((dfsID = data.get("m").get("fid").parseLong()) != 0) {
 				break;
 			}
 		case Low:
-			data.get("LqUrl").parseString();
+			dfsID = data.get("l").get("fid").parseLong();
 			break;
 		case AsLow:
-			if ((data.get("LqUrl").parseString())==""){
-				if ((data.get("HqUrl").parseString())==""){
-					data.get("SqUrl").parseString();
+			if ((dfsID = data.get("l").get("fid").parseLong()) == 0) {
+				if ((dfsID = data.get("m").get("fid").parseLong()) == 0) {
+					dfsID = data.get("h").get("fid").parseLong();
 				}
 			}
 		}
-		String[] temp = songURL.split("/");
-		return temp[temp.length-1].split(Pattern.quote("."))[0];
+		return String.valueOf(dfsID);
 	}
 }

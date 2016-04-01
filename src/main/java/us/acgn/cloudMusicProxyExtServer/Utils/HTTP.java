@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.fluent.Content;
+import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -16,7 +17,7 @@ import us.acgn.cloudMusicProxyExtServer.ProjectStatus;
 public class HTTP {
 	public static String httpPost(String ip, int port, String url, String charset, Map<String, String> headers,
 			Map<String, String> params) {
-		String finalUrl = "http://" + ip + ":" + port + "/" + url;
+		String finalUrl = "http://" + ip +  "/" + url;
 		if (charset == null) {
 			charset = "UTF-8";
 		}
@@ -26,10 +27,15 @@ public class HTTP {
 				nvps.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
 			}
 		}
+		Request req = null;
 		Content content = null;
-		HttpResponse response = null;
 		try {
-			Request req = Request.Post(finalUrl).bodyForm(nvps).viaProxy("127.0.0.1:8888");
+			if (ProjectStatus.isDevelopment()){
+				req = Request.Post(finalUrl).bodyForm(nvps).viaProxy("127.0.0.1:8888");
+			}else{
+				req = Request.Post(finalUrl).bodyForm(nvps);
+			}
+			
 			if (headers != null) {
 				for (Map.Entry<String, String> entry : headers.entrySet()) {
 					req.addHeader(entry.getKey(), entry.getValue());
