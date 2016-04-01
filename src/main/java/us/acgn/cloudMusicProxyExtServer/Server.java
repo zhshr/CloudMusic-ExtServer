@@ -63,7 +63,7 @@ public class Server extends NanoHTTPD {
 			session.parseBody(new HashMap<String, String>());
 			Map<String, String> params = session.getParms();
 			msg = process(method, uri, params);
-			if (msg=="" && ! ProjectStatus.isDevelopment){
+			if (msg=="" && ProjectStatus.isDevelopment){
 				msg = method.toString() + "<br />" + uri + "<br />";
 				for (Map.Entry<String, String> entry : params.entrySet()) {
 					msg += entry.getKey() + " : " + entry.getValue() + "<br />";
