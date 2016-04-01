@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>us.acgn</groupId>
-	<artifactId>cloudMusicProxyServer</artifactId>
+	<artifactId>cloudMusicProxyExtServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>cloudMusicProxyServer</name>
+	<name>cloudMusicProxyExtServer</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
