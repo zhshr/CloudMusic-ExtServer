@@ -60,7 +60,7 @@ public class HTTP {
 		Content content = null;
 		Request req = null;
 		try {
-			if (ProjectStatus.isDevelopment){
+			if (ProjectStatus.isDevelopment()){
 				req = Request.Get(finalUrl).viaProxy("127.0.0.1:8888");
 			}else{
 				req = Request.Get(finalUrl);
